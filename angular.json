@@ -19,13 +19,23 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+              "faye-websocket",
+              "undici",
+              "sweetalert2"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/bootstrap/css/bootstrap.min.css",
+              "src/assets/css/fontawesome.css",
+              "src/assets/css/templatemo-scholar.css",
+              "src/assets/css/owl.css",
+              "src/assets/css/animate.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -39,8 +49,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -96,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a903c3a4-3eab-49f9-b64e-ad54676a9c35"
   }
 }

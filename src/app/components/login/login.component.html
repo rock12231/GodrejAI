@@ -1,0 +1,47 @@
+<div class="contact-us section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6  align-self-center">
+          <div class="section-heading">
+            <!-- <h6>Contact Us</h6> -->
+            <h2>Login Here...</h2>
+            <p>You can login here with your email and password or you can login with your google account.</p>
+            <div class="special-offer">
+              <span class="offer">Godrej<br><em>AI</em></span>
+              <h6><em>Secure & Fast</em></h6>
+              <h4>Login with <em>Google</em> here</h4>
+              <a (click)="this.fauth.logInWithGoogle()"><i class="fa fa-angle-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="contact-us-content">
+            <form id="contact-form" method="post">
+              <div class="row">
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="text" name="email" id="email" value="avinashkumar20rock@gmail.com" #email pattern="[^ @]*@[^ @]*" placeholder="Your E-mail" required="">
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="password" name="password" value="Avinash@123" id="password" #password placeholder="Your Password" required>
+                  </fieldset>
+                </div>
+                <!-- <div class="col-lg-12">
+                  <fieldset>
+                    <textarea name="message" id="message" placeholder="Your Message"></textarea>
+                  </fieldset>
+                </div> -->
+                <div class="col-lg-12">
+                  <fieldset>
+                    <button type="submit" (click)="this.fauth.logInWithEmailPassword(email.value, password.value)" class="orange-button">Login</button>
+                  </fieldset>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
