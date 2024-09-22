@@ -13,10 +13,4 @@ import { LogService } from '../../shared/services/log.service';
 })
 export class BaseComponent {
 
-  constructor(private userLogService: LogService) {}
-
-  ngOnInit() {
-    this.userLogService.initLogListener();
-  }
-
 }

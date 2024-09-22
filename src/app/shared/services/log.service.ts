@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Database, push, ref } from '@angular/fire/database';
 import { NavigationEnd, Router } from '@angular/router';
@@ -13,7 +14,8 @@ export class LogService {
 
   constructor(
     private router: Router, 
-    private db: Database
+    private db: Database,
+    private http: HttpClient 
   ) {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('user')) {
       this.user = localStorage.getItem('user');
@@ -25,7 +27,7 @@ export class LogService {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(event => {
-      const navigation = event as NavigationEnd; 
+      const navigation = event as NavigationEnd;
 
       if (this.user) {
         this.logNavigation(this.user.uid, navigation.urlAfterRedirects);
@@ -35,11 +37,16 @@ export class LogService {
 
   logNavigation(userId: string, url: string) {
     const logRef = ref(this.db, `users/${userId}/Logs`)
-    const formattedDate = new DatePipe('en-US').transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
-    const logData = {
-      url: "https://godrej-chat.web.app"+url,
-      timestamp: formattedDate
-    }
-    push(logRef, logData);
+    const formattedDate = new DatePipe('en-US').transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
+    this.http.get('https://ipapi.co/json/').subscribe((data: any) => {
+      const logData = {
+        url: "https://godrej-chat.web.app" + url,
+        timestamp: formattedDate,
+        ...data
+      }
+      push(logRef, logData);
+    }, (error) => {
+      console.error('Error fetching IP/location data', error);
+    });
   }
 }

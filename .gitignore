@@ -22,6 +22,7 @@ yarn-error.log
 .angular
 .vscode
 /public
+firebase
 
 # Visual Studio Code
 .vscode/*

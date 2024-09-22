@@ -12,7 +12,7 @@ export class ToastAlertService {
     title: string,
     icon: 'success' | 'error' | 'warning' | 'info' | 'question' = 'success',
     position: 'top' | 'top-end' | 'top-start' | 'center' | 'center-end' | 'center-start' | 'bottom' | 'bottom-end' | 'bottom-start' = 'top-end',
-    timer: number = 2500,
+    timer: number = 3000,
     backgroundColor?: string
   ) {
     Swal.fire({

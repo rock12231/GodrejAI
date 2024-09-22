@@ -20,26 +20,21 @@
               <div class="row">
                 <div class="col-lg-12">
                   <fieldset>
-                    <input type="text" name="email" id="email" value="avinashkumar20rock@gmail.com" #email pattern="[^ @]*@[^ @]*" placeholder="Your E-mail" required="">
+                    <input type="text" name="email" id="email" value="210231017@hbtu.ac.in" #email pattern="[^ @]*@[^ @]*" placeholder="Your E-mail" required="">
                   </fieldset>
                 </div>
                 <div class="col-lg-12">
                   <fieldset>
-                    <input type="password" name="password" value="Avinash@123" id="password" #password placeholder="Your Password" required>
-                  </fieldset>
-                </div>
-                <!-- <div class="col-lg-12">
-                  <fieldset>
-                    <textarea name="message" id="message" placeholder="Your Message"></textarea>
-                  </fieldset>
-                </div> -->
-                <div class="col-lg-12">
-                  <fieldset>
-                    <button type="submit" (click)="this.fauth.logInWithEmailPassword(email.value, password.value)" class="orange-button">Login</button>
+                    <input type="password" name="password" value="123456" id="password" #password placeholder="Your Password" required>
                   </fieldset>
                 </div>
               </div>
             </form>
+            <div class="col-lg-12">
+              <fieldset>
+                <button type="submit" (click)="this.fauth.logInWithEmailPassword(email.value, password.value)" class="orange-button">Login</button>
+              </fieldset>
+            </div>
           </div>
         </div>
       </div>

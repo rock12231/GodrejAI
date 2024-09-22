@@ -57,8 +57,25 @@ export class FirebaseService {
     }
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        this.SetUserData(userCredential.user);
-        this.router.navigate(['/'])
+        const user = userCredential.user;
+        
+        // Check if the user's email is verified
+        if (!user.emailVerified) {
+          sendEmailVerification(user)
+            .then(() => {
+              this.toastService.showToast('Please verify your email. Verification email sent again.', 'info', 'top-end');
+            })
+            .catch((error) => {
+              this.toastService.showToast('Failed to send verification email', 'error', 'top-end');
+              console.error('Verification email error:', error);
+            });
+          this.auth.signOut();  // Logout immediately if not verified
+          return;
+        }
+  
+        // Email is verified, proceed with login
+        this.SetUserData(user);
+        this.router.navigate(['/']);
         this.toastService.showToast('Signed in successfully', 'success', 'top-end');
       })
       .catch((error) => {
@@ -66,6 +83,8 @@ export class FirebaseService {
         console.error('Error signing in', error);
       });
   }
+  
+  
 
   registerWithEmailPassword(email: string, password: string, displayName: string) {
     if (email === '' || password === '' || displayName === '') {
@@ -73,29 +92,37 @@ export class FirebaseService {
       return;
     }
     createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        updateProfile(userCredential.user, {
+      .then(async (userCredential) => {
+        // Update display name
+        await updateProfile(userCredential.user, {
           displayName: displayName,
         });
-        this.SetUserData(userCredential.user);
-         if (!userCredential.user.emailVerified) {
+  
+        // Send verification email
+        if (!userCredential.user.emailVerified) {
           sendEmailVerification(userCredential.user)
-          .then(() => {
-            this.toastService.showToast('Verification email sent', 'info', 'top-end');
-          })
-          .catch((error) => {
-            this.toastService.showToast('Failed to send verification email', 'error', 'top-end');
-            console.error('Verification email error:', error);
-          });        
+            .then(() => {
+              this.toastService.showToast('Verification email sent. Please verify your email.', 'info', 'top-end');
+            })
+            .catch((error) => {
+              this.toastService.showToast('Failed to send verification email', 'error', 'top-end');
+              console.error('Verification email error:', error);
+            });
         }
-        // this.router.navigate(['/'])
-        // this.toastService.showToast('Signed in successfully', 'success', 'top-end');
+  
+        // Log the user out immediately
+        this.auth.signOut().then(() => {
+          this.toastService.showToast('Registered successfully. Please verify your email to log in.', 'success', 'top-end');
+          this.router.navigate(['login']); // Redirect to login page
+        });
+  
       })
       .catch((error) => {
-        this.toastService.showToast('Error signing in', 'error', 'top-end');
-        console.error('Error signing in', error);
+        this.toastService.showToast('Error registering', 'error', 'top-end');
+        console.error('Error registering', error);
       });
   }
+  
 
   forgotPassword(email: string) {
     sendPasswordResetEmail(this.auth, email)

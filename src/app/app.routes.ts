@@ -7,11 +7,12 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ChatAIComponent } from './components/chat-ai/chat-ai.component';
+import { VerifyComponent } from './components/verify/verify.component';
 
 
 export const routes: Routes = [
-
   { path: '', component: HomeComponent },
+  { path: 'verify', component: VerifyComponent },
   { path: 'login', component: LoginComponent },
   { path: 'about', component: AboutComponent},
   { path: 'register', component: RegisterComponent },

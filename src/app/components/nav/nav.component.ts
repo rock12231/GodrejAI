@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterLink, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LogService } from '../../shared/services/log.service';
 
 @Component({
   selector: 'app-nav',
@@ -21,7 +22,8 @@ export class NavComponent {
 
   constructor(
     public fauth: FirebaseService,
-    private router: Router
+    private router: Router,
+    private userLogService: LogService
   ) {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('user')) {
       this.user = localStorage.getItem('user');
@@ -41,6 +43,7 @@ export class NavComponent {
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
           this.reloadLocalStorage();
+          this.userLogService.initLogListener();
         }
       });
   }
