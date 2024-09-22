@@ -8,7 +8,7 @@ import { FirebaseService } from './firebase.service';
 })
 export class ApiService {
 
-  private flaskApiUrl = 'http://127.0.0.1:5000/test'; // Change this to your actual Flask API URL
+  private flaskApiUrl = 'http://127.0.0.1:5000/test';
 
   constructor(private http: HttpClient, private fauth: FirebaseService) {}
 

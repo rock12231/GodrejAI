@@ -17,10 +17,8 @@ import { CommonModule } from '@angular/common';
 export class ChatAIComponent {
 
   user: any;
-  chat:boolean = true;
-  history:boolean = false;
-  news:boolean = false;
-  about:boolean = false;
+  chats: any;
+  activeSection: string = 'AI Chat';
 
   constructor(
     public fauth: FirebaseService,
@@ -37,20 +35,28 @@ export class ChatAIComponent {
 
   async ngOnInit() {
     const userRef = ref(this.db, `users/${this.user.uid}/info`);
-    const snapshot = await get(userRef);
-    const profile = snapshot.val()
+    const userSnapshot = await get(userRef);
+    const profile = userSnapshot.val()
     if(profile.department == undefined || profile.interests == undefined || profile.skills == undefined){
       this.toastService.showToast('Please complete your profile first', 'error', 'top-end');
       this.router.navigate(['profile', this.user.displayName]);
     }
+    this.getChat();
   }
-
-  activeSection: string = 'AI Chat';
 
   setActiveSection(section: string) {
     this.activeSection = section;
   }
 
-
-
+  async getChat(){
+    const chatRef = ref(this.db, `users/${this.user.uid}/chat`);
+    const chatSnapshot = await get(chatRef);
+    const chat = chatSnapshot.val()
+    const chatArray = Object.keys(chat).map(key => ({
+      key: key,
+      question: chat[key].question,
+      response: chat[key].response
+    }));
+    this.chats = chatArray;
+  }
 }
