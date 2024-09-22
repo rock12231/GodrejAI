@@ -16,11 +16,11 @@
     <!-- ***** Menu Start ***** -->
     <ul class="nav">
         <li class="scroll-to-section" (click)="navHome()"><a [ngClass]="{'active': activeRoute === '/'} ">Home</a></li>
-        <li *ngIf="fauth.userData" class="scroll-to-section" (click)="navChat()"><a [ngClass]="{'active': activeRoute === '/chat'} ">Chat</a></li>
+        <li *ngIf="fauth.userData" class="scroll-to-section" (click)="navAIChat()"><a [ngClass]="{'active': activeRoute === '/ai-chat'} ">AI Chat</a></li>
         <li *ngIf="fauth.userData" class="scroll-to-section" (click)="navProfile()"><a [ngClass]="{'active': isProfileActive}">{{user?.displayName | titlecase}}</a></li>
         <li *ngIf="fauth.userData" class="scroll-to-section" (click)="navLogout()"><a>Logout</a></li>
-        <li *ngIf="!fauth.userData" class="scroll-to-section" (click)="navLogin()"><a [ngClass]="{'active': activeRoute === '/login'} ">Login</a></li>
         <li *ngIf="!fauth.userData" class="scroll-to-section" (click)="navRegister()" ><a [ngClass]="{'active': activeRoute === '/register'} ">Register</a></li>
+        <li *ngIf="!fauth.userData" class="scroll-to-section" (click)="navLogin()"><a [ngClass]="{'active': activeRoute === '/login'} ">Login</a></li>
     </ul>   
     <a class='menu-trigger'>
         <span>Menu</span>

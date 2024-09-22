@@ -1,1 +1,132 @@
-<p>chat-ai works!</p>
+<section class="section courses" id="courses" >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-heading">
+            <h6>Godrej AI</h6>
+            <h2>{{activeSection}}</h2>
+          </div>
+        </div>
+      </div>
+      <ul class="event_filter">
+        <li>
+            <a
+               [class.is_active]="activeSection === 'AI Chat'" 
+               (click)="setActiveSection('AI Chat')">New Chat</a>
+        </li>
+        <li>
+            <a
+               [class.is_active]="activeSection === 'history'" 
+               (click)="setActiveSection('history')">History</a>
+        </li>
+        <li>
+            <a
+               [class.is_active]="activeSection === 'news'" 
+               (click)="setActiveSection('news')">News</a>
+        </li>
+        <li>
+            <a 
+               [class.is_active]="activeSection === 'about'" 
+               (click)="setActiveSection('about')">About Godrej AI Chat</a>
+        </li>
+    </ul>
+    </div>
+
+
+    <div *ngIf="activeSection === 'AI Chat'" class="contact-us section" id="contact">
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="contact-us-content">
+                    <div class="row">
+                        <div class="col-lg-12 my-4 align-self-center rounded-3" style="height: 500px; overflow-x: auto; background-color: #f1f0fe;">
+                            <!-- <div class="section-heading">
+                                <h2>Chat with Godrej AI</h2>
+                                <p>Ask your queries here and get the best answers from Godrej AI Chat.</p>
+                            </div> -->
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="d-flex">
+                                <input class="d-inline" type="text" #search name="search" id="search" placeholder="Type Your Query..." required>
+                                <button class="d-inline pl-1" type="submit" id="form-submit" class="orange-button"><i class="fa fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="activeSection === 'history'" class="container">
+        <div class="col-lg-12">
+            <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Where shall we begin?
+                </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
+                </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How do we work together?
+                </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
+                </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Why SCHOLAR is the best?
+                </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    There are more than one hundred responsive HTML templates to choose from <strong>Template</strong>Mo website. You can browse by different tags or categories.
+                </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Do we get the best support?
+                </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    You can also search on Google with specific keywords such as <code>templatemo business templates, templatemo gallery templates, admin dashboard templatemo, 3-column templatemo, etc.</code>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="activeSection === 'news'" class="container">
+        <div>
+            <div class="section-heading">
+                <h2>News</h2>
+                <p>Get the latest news from Godrej AI Chat.</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="activeSection === 'about'" class="container">
+        <div>
+            <div class="section-heading">
+                <h2>About Godrej AI Chat</h2>
+                <p>Get the information about Godrej AI Chat.</p>
+            </div>
+        </div>
+    </div>
+
+  </section>

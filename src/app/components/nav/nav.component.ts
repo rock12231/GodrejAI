@@ -9,12 +9,12 @@ import { LogService } from '../../shared/services/log.service';
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule,FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-  
+
   activeRoute: string | undefined;
   user: any;
   isProfileActive: boolean = false;
@@ -40,15 +40,15 @@ export class NavComponent {
         this.isDashboardActive = this.activeRoute.startsWith('/dashboard/');
       });
 
-      this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          this.reloadLocalStorage();
-          this.userLogService.initLogListener();
-        }
-      });
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.reloadLocalStorage();
+        this.userLogService.initLogListener();
+      }
+    });
   }
 
-  reloadLocalStorage(){
+  reloadLocalStorage() {
     console.log('reloading local storage');
     if (typeof localStorage !== 'undefined' && localStorage.getItem('user')) {
       this.user = localStorage.getItem('user');
@@ -66,12 +66,12 @@ export class NavComponent {
       this.user = JSON.parse(this.user);
     }
     if (this.user.role) {
-      this.router.navigate(['dashboard/'+this.user.role, this.user.displayName]);
+      this.router.navigate(['dashboard/' + this.user.role, this.user.displayName]);
     }
   }
 
   navContact() {
-    this.router.navigate(['contact']); 
+    this.router.navigate(['contact']);
   }
 
   navAbout() {
@@ -82,12 +82,12 @@ export class NavComponent {
     this.router.navigate(['login']);
   }
 
-  navRegister(){
+  navRegister() {
     this.router.navigate(['register']);
   }
 
-  navChat(){
-    this.router.navigate(['chat']);
+  navAIChat() {
+    this.router.navigate(['ai-chat']);
   }
 
   navProfile() {
@@ -98,6 +98,6 @@ export class NavComponent {
     this.fauth.logout();
     this.router.navigate(['/']);
   }
-  
+
 
 }

@@ -131,7 +131,7 @@ body {
 
 .section {
   padding-top: 30px;
-  margin-top: 120px;
+  /* margin-top: 120px; */
 }
 
 .section-heading {
@@ -952,9 +952,9 @@ Courses Style
 --------------------------------------------- 
 */
 
-.courses {
-  margin-top: 160px;
-}
+/* .courses { */
+  /* margin-top: 160px; */
+/* } */
 
 .event_filter {
   text-align: center;

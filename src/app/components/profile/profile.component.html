@@ -1,0 +1,47 @@
+<div class="contact-us section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6  align-self-center">
+          <div class="section-heading">
+            <!-- <h6>Contact Us</h6> -->
+            <h2>{{user.displayName}}</h2>
+            <p class="mt-0 pb-3">You can update your profile here.</p>
+            <div>
+                <span><h6><em>Email :</em></h6> {{user.email}}</span>
+                <span *ngIf="profile"><h6><em>Department :</em></h6> {{profile.department}}</span>
+                <span *ngIf="profile"><h6><em>Interests :</em></h6> {{profile.interests}}</span>
+                <span *ngIf="profile"><h6><em>Skills :</em></h6> {{profile.skills}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="contact-us-content">
+            <form id="contact-form" method="post">
+              <div class="row">
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="text" name="department" id="department" value="{{profile.department}}" #department placeholder="Your Department" required="">
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="text" name="interests" value="{{profile.interests}}" id="interests" #interests placeholder="Your Interests" required>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                    <fieldset>
+                      <input type="text" name="skills" value="{{profile.skills}}" id="skills" #skills placeholder="Your Skills" required>
+                    </fieldset>
+                </div>
+              </div>
+            </form>
+            <div class="col-lg-12">
+              <fieldset>
+                <button type="submit" (click)="updateProfile(department.value,interests.value,skills.value)" class="orange-button">Update Profile</button>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

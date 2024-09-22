@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Database, ref, set, get } from '@angular/fire/database';
 import { ToastAlertService } from './toast-alert.service';
 import { DatePipe } from '@angular/common';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class FirebaseService {
     private auth: Auth,
     @Inject(Router) public router: Router,
     public db: Database,
-    private toastService: ToastAlertService
+    private toastService: ToastAlertService,
+    private spinnerService: SpinnerService
   ) {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -37,21 +39,26 @@ export class FirebaseService {
   }
 
   logInWithGoogle() {
+    this.spinnerService.show();
     const provider = new GoogleAuthProvider();
     signInWithPopup(this.auth, provider)
       .then((result) => {
         this.SetUserData(result.user);
-        this.router.navigate(['/'])
+        this.router.navigate(['ai-chat']);
+        this.spinnerService.hide();
         this.toastService.showToast('Signed in successfully', 'success', 'top-end');
       })
       .catch((error) => {
+        this.spinnerService.hide();
         this.toastService.showToast('Error signing in', 'error', 'top-end');
         console.error('Error signing in', error);
       });
   }
 
   logInWithEmailPassword(email: string, password: string) {
+    this.spinnerService.show();
     if (email === '' || password === '') {
+      this.spinnerService.hide();
       this.toastService.showToast('Please fill in all fields', 'error', 'top-end');
       return;
     }
@@ -63,22 +70,27 @@ export class FirebaseService {
         if (!user.emailVerified) {
           sendEmailVerification(user)
             .then(() => {
+              this.spinnerService.hide();
               this.toastService.showToast('Please verify your email. Verification email sent again.', 'info', 'top-end');
             })
             .catch((error) => {
+              this.spinnerService.hide();
               this.toastService.showToast('Failed to send verification email', 'error', 'top-end');
               console.error('Verification email error:', error);
             });
           this.auth.signOut();  // Logout immediately if not verified
+          this.spinnerService.hide();
           return;
         }
   
         // Email is verified, proceed with login
         this.SetUserData(user);
-        this.router.navigate(['/']);
+        this.router.navigate(['ai-chat']);
+        this.spinnerService.hide();
         this.toastService.showToast('Signed in successfully', 'success', 'top-end');
       })
       .catch((error) => {
+        this.spinnerService.hide();
         this.toastService.showToast('Error signing in', 'error', 'top-end');
         console.error('Error signing in', error);
       });
@@ -87,7 +99,9 @@ export class FirebaseService {
   
 
   registerWithEmailPassword(email: string, password: string, displayName: string) {
+    this.spinnerService.show();
     if (email === '' || password === '' || displayName === '') {
+      this.spinnerService.hide();
       this.toastService.showToast('Please fill in all fields', 'error', 'top-end');
       return;
     }
@@ -102,28 +116,30 @@ export class FirebaseService {
         if (!userCredential.user.emailVerified) {
           sendEmailVerification(userCredential.user)
             .then(() => {
+              this.spinnerService.hide();
               this.toastService.showToast('Verification email sent. Please verify your email.', 'info', 'top-end');
             })
             .catch((error) => {
+              this.spinnerService.hide();
               this.toastService.showToast('Failed to send verification email', 'error', 'top-end');
               console.error('Verification email error:', error);
             });
         }
   
         // Log the user out immediately
-        this.auth.signOut().then(() => {
+          this.auth.signOut().then(() => {
           this.toastService.showToast('Registered successfully. Please verify your email to log in.', 'success', 'top-end');
-          this.router.navigate(['login']); // Redirect to login page
+          this.router.navigate(['login']);
         });
   
       })
       .catch((error) => {
+        this.spinnerService.hide();
         this.toastService.showToast('Error registering', 'error', 'top-end');
         console.error('Error registering', error);
       });
   }
   
-
   forgotPassword(email: string) {
     sendPasswordResetEmail(this.auth, email)
       .then(() => {
@@ -136,12 +152,13 @@ export class FirebaseService {
   }
 
   logout() {
+    this.spinnerService.show();
     this.auth.signOut().then(() => {
       localStorage.clear();
-      this.router.navigate(['login']);
-      this.toastService.showToast('Logout successfully', 'success', 'top-end');
       this.userData = null;
-
+      this.router.navigate(['']);
+      this.spinnerService.hide();
+      this.toastService.showToast('Logout successfully', 'success', 'top-end');
     });
   }
 
@@ -155,7 +172,6 @@ export class FirebaseService {
 
   async SetUserData(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('loadProfile', JSON.stringify(user?.uid));
     const userRef = ref(this.db, `users/${user.uid}/info`);
     const formattedDate = new DatePipe('en-US').transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
   
