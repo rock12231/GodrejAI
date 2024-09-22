@@ -8,9 +8,9 @@
             <p class="mt-0 pb-3">You can update your profile here.</p>
             <div>
                 <span><h6><em>Email :</em></h6> {{user.email}}</span>
-                <span *ngIf="profile"><h6><em>Department :</em></h6> {{profile.department}}</span>
-                <span *ngIf="profile"><h6><em>Interests :</em></h6> {{profile.interests}}</span>
-                <span *ngIf="profile"><h6><em>Skills :</em></h6> {{profile.skills}}</span>
+                <span *ngIf="profile"><h6><em>Department :</em></h6> {{profile?.department}}</span>
+                <span *ngIf="profile"><h6><em>Interests :</em></h6> {{profile?.interests}}</span>
+                <span *ngIf="profile"><h6><em>Skills :</em></h6> {{profile?.skills}}</span>
             </div>
           </div>
         </div>
@@ -20,17 +20,17 @@
               <div class="row">
                 <div class="col-lg-12">
                   <fieldset>
-                    <input type="text" name="department" id="department" value="{{profile.department}}" #department placeholder="Your Department" required="">
+                    <input type="text" name="department" id="department" value="{{profile?.department}}" #department placeholder="Your Department" required="">
                   </fieldset>
                 </div>
                 <div class="col-lg-12">
                   <fieldset>
-                    <input type="text" name="interests" value="{{profile.interests}}" id="interests" #interests placeholder="Your Interests" required>
+                    <input type="text" name="interests" value="{{profile?.interests}}" id="interests" #interests placeholder="Your Interests" required>
                   </fieldset>
                 </div>
                 <div class="col-lg-12">
                     <fieldset>
-                      <input type="text" name="skills" value="{{profile.skills}}" id="skills" #skills placeholder="Your Skills" required>
+                      <input type="text" name="skills" value="{{profile?.skills}}" id="skills" #skills placeholder="Your Skills" required>
                     </fieldset>
                 </div>
               </div>
