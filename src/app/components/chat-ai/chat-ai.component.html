@@ -77,7 +77,7 @@
                 </div> -->
             <div *ngFor="let chat of chats;let i = index" class="accordion-item">
                 <h2 class="accordion-header" id="headingOne+{{chat.key}}">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true" [attr.aria-controls]="'collapseOne' + i">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true" [attr.aria-controls]="'collapseOne' + i">
                         {{chat.question}}
                     </button>
                 </h2>

@@ -45,10 +45,17 @@ export class ChatAIComponent {
       this.router.navigate(['profile', this.user.displayName]);
     }
     this.getChat();
+    this.recentNews();
   }
 
   setActiveSection(section: string) {
     this.activeSection = section;
+    // if (section === 'AI Chat') {
+    //   this.getChat();
+    // }
+    // if (section === 'Recent News') {
+    //   this.recentNews();
+    // }
   }
 
   async getChat() {
@@ -63,12 +70,18 @@ export class ChatAIComponent {
     this.chats = chatArray;
   }
 
+
+  async getProfile(){
+    const userRef = ref(this.db, `users/${this.user.uid}/info`);
+    const snapshot = await get(userRef);
+    const user_data = snapshot.val();
+    return user_data
+  }
+
   async sendMessage(prompt: any) {
     this.spinnerService.show();
     try {
-      const userRef = ref(this.db, `users/${this.user.uid}/info`);
-      const snapshot = await get(userRef);
-      const user_data = snapshot.val();
+      const user_data = await this.getProfile()
       const response$ = await this.apiService.generate(prompt, user_data);
       response$.subscribe(
         response => {
@@ -106,6 +119,28 @@ export class ChatAIComponent {
       .catch((error) => {
         console.error('Error saving chat:', error);
       });
+  }
+
+  async recentNews() { 
+    this.spinnerService.show();
+    try {
+      const user_data = await this.getProfile()
+      const response$ = await this.apiService.recentNews(user_data);
+      response$.subscribe(
+        response => {
+          this.spinnerService.hide();
+          console.log('Recent News:', response);
+          this.result = response;
+        },
+        error => {
+          this.spinnerService.hide();
+          console.error('Error retrieving recent news:', error);
+        }
+      );
+    } catch (error) {
+      this.spinnerService.hide();
+      console.error('Error retrieving auth token:', error);
+    }
   }
 
 }

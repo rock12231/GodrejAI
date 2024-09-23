@@ -8,7 +8,8 @@ import { FirebaseService } from './firebase.service';
 })
 export class ApiService {
 
-  private baseUrl = 'https://godreja.onrender.com';
+  // private baseUrl = 'http://127.0.0.1:5000'
+  private baseUrl = 'https://godreja.onrender.com'
 
   constructor(
     private http: HttpClient, 
@@ -31,7 +32,25 @@ export class ApiService {
       return throwError(error);
     }
   }
-  // Handle API errors
+  
+  async recentNews(user_data:any): Promise<Observable<any>> {
+    const url = `${this.baseUrl}/recent-news`;
+    const body = { user_data };
+    try {
+      const token = await this.fauth.getAuthToken()
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+
+      return this.http.post(url, body, { headers }).pipe(
+        catchError(this.handleError)
+      );
+    } catch (error) {
+      return throwError(error);
+    }
+  }
+
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(error);
