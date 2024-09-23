@@ -39,15 +39,19 @@
                 <div class="contact-us-content">
                     <div class="row">
                         <div class="col-lg-12 my-4 align-self-center rounded-3" style="height: 500px; overflow-x: auto; background-color: #f1f0fe;">
-                            <!-- <div class="section-heading">
-                                <h2>Chat with Godrej AI</h2>
-                                <p>Ask your queries here and get the best answers from Godrej AI Chat.</p>
-                            </div> -->
+                            <div *ngIf="result">
+                                {{result}}
+                            </div>
+                            <div *ngIf="!result">
+                                <div class="d-flex text-center">
+                                    <p>Please type your query to get the response.</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="d-flex">
-                                <input class="d-inline" type="text" #search name="search" id="search" placeholder="Type Your Query..." required>
-                                <button class="d-inline pl-1" type="submit" id="form-submit" class="orange-button"><i class="fa fa-paper-plane"></i></button>
+                                <input class="d-inline" type="text" #search name="search" id="search" #message placeholder="Type Your Query..." required>
+                                <button class="d-inline pl-1" (click)="sendMessage(message.value)" type="submit" id="form-submit" class="orange-button"><i class="fa fa-paper-plane"></i></button>
                             </div>
                         </div>
                     </div>
